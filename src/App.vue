@@ -1,18 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <div>
+      <h1>Infos</h1>
+      <pre>{{ transactions }}</pre>
+      <TableList />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import axios from "axios";
+import ITransactions from "@/types/Transactions";
+import IResponseData from "@/types/ResponseData";
+import TableList from "./components/TableList.vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld,
+    TableList,
+  },
+  data() {
+    return {
+      transactions: [] as ITransactions[],
+      currentIndex: -1,
+    };
+  },
+  mounted() {
+    axios
+      .get("https://warren-transactions-api.herokuapp.com/api/transactions")
+      .then((response: IResponseData) => {
+        this.transactions = response.data;
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
   },
 });
 </script>
