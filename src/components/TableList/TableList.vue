@@ -66,5 +66,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="less">
-  @import "./TableList.less";
+  @import "./table.less";
 </style>
