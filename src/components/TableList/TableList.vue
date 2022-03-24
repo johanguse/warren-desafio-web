@@ -1,6 +1,6 @@
 <template>
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="thead">
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Description</th>
@@ -10,12 +10,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="transaction in sortedItems" :key="transaction.id">
+      <tr class="table-line" v-for="transaction, index in sortedItems" :key="transaction.id">
         <td>{{ transaction.title }}</td>
         <td>{{ transaction.description }}</td>
         <td>{{ transaction.status }}</td>
         <td>{{ transaction.date }}</td>
-        <td><button @click="deleteEvent(transaction.id)">Delete</button></td>
+        <td><button @click="deleteEvent(index)">Delete</button></td>
       </tr>
     </tbody>
   </table>
@@ -47,9 +47,9 @@ export default Vue.extend({
       });
   },
   methods: {
-    deleteEvent(id: number) {
-      console.log(id);
-      this.transactions.splice(id, 1);
+    deleteEvent(index: number) {
+      console.log(index);
+      this.transactions.splice(index, 1);
     },
   },
   computed: {
@@ -67,5 +67,8 @@ export default Vue.extend({
 .table {
   border-collapse: collapse;
   width: 100%;
+}
+.thead, .table-line:nth-child(even) {
+  background: #eee;
 }
 </style>

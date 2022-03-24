@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <HeaderApp/>
     <div>
       <h1>Infos</h1>
       <TableList />
@@ -13,12 +14,14 @@ import Vue from 'vue';
 import axios from "axios";
 import ITransactions from "@/types/Transactions";
 import IResponseData from "@/types/ResponseData";
-import TableList from "./components/TableList.vue";
+import HeaderApp from "./components/Header/Header.vue";
+import TableList from "./components/TableList/TableList.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
     TableList,
+    HeaderApp,
   },
   data() {
     return {
@@ -41,6 +44,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
+@import (reference) "./styles/global/index.less";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
