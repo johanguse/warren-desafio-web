@@ -65,13 +65,6 @@ export default Vue.extend({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-.table {
-  border-collapse: collapse;
-  width: 100%;
-}
-.thead, .table-line:nth-child(even) {
-  background: #eee;
-}
+  @import "./TableList.less";
 </style>
