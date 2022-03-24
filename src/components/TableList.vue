@@ -2,18 +2,20 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">id</th>
         <th scope="col">Title</th>
-        <th scope="col">description</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Date</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(transaction, index) in transactions" :key="transaction.id">
-        <th scope="row">
-          {{ index + 1 }}
-        </th>
-        <td>{{ transaction.id }}</td>
-        <td>{{ transaction.name }}</td>
+      <tr v-for="transaction in sortedItems" :key="transaction.id">
+        <td>{{ transaction.title }}</td>
+        <td>{{ transaction.description }}</td>
+        <td>{{ transaction.status }}</td>
+        <td>{{ transaction.date }}</td>
+        <td><button @click="deleteEvent(transaction.id)">Delete</button></td>
       </tr>
     </tbody>
   </table>
@@ -44,23 +46,26 @@ export default Vue.extend({
         console.log(e);
       });
   },
+  methods: {
+    deleteEvent(id: number) {
+      console.log(id);
+      this.transactions.splice(id, 1);
+    },
+  },
+  computed: {
+    sortedItems(): ITransactions[] {
+      return [...this.transactions].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      );
+    },
+  },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.table {
+  border-collapse: collapse;
+  width: 100%;
 }
 </style>
