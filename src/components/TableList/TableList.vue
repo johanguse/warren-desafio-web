@@ -14,7 +14,7 @@
         <td>{{ transaction.title }}</td>
         <td>{{ transaction.description }}</td>
         <td>{{ transaction.status }}</td>
-        <td>{{ transaction.date }}</td>
+        <td>{{ formatDate(transaction.date) }}</td>
         <td><button @click="deleteEvent(index)">Delete</button></td>
       </tr>
     </tbody>
@@ -50,6 +50,9 @@ export default Vue.extend({
     deleteEvent(index: number) {
       console.log(index);
       this.transactions.splice(index, 1);
+    },
+    formatDate(date: Date) {
+      return new Date(date).toLocaleDateString('pt-BR');
     },
   },
   computed: {
