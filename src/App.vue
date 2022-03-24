@@ -2,8 +2,8 @@
   <div id="app">
     <div>
       <h1>Infos</h1>
-      <pre>{{ transactions }}</pre>
       <TableList />
+      <pre>{{ transactions }}</pre>
     </div>
   </div>
 </template>
