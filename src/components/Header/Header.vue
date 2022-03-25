@@ -17,5 +17,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="less">
-  @import "./Header.less";
+  @import "./header.less";
 </style>
