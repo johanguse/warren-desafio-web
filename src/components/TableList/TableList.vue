@@ -1,26 +1,33 @@
 <template>
-  <table class="table">
-    <thead class="thead">
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Status</th>
-        <th scope="col">Date</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="table-line" v-for="transaction, index in sortedItems" :key="transaction.id">
-        <td>{{ transaction.title }}</td>
-        <td>{{ transaction.description }}</td>
-        <td>{{ formatStatus(transaction.status) }}</td>
-        <td>{{ formatDate(transaction.date) }}</td>
-        <td>{{ formatAmount(transaction.amount) }}</td>
-        <td><button @click="deleteEvent(index)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+<div>
+  <div v-if="loading">
+      <p>Carregando...</p>
+  </div>
+  <div v-else>
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Date</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-line" v-for="transaction, index in sortedItems" :key="transaction.id">
+          <td>{{ transaction.title }}</td>
+          <td>{{ transaction.description }}</td>
+          <td>{{ formatStatus(transaction.status) }}</td>
+          <td>{{ formatDate(transaction.date) }}</td>
+          <td>{{ formatAmount(transaction.amount) }}</td>
+          <td><button @click="deleteEvent(index)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -33,6 +40,9 @@ export default Vue.extend({
   name: "TableList",
   data() {
     return {
+      success: false,
+      error: false,
+      loading: true,
       transactions: [] as ITransactions[],
       currentIndex: -1,
     };
@@ -42,10 +52,14 @@ export default Vue.extend({
       .get("https://warren-transactions-api.herokuapp.com/api/transactions")
       .then((response: IResponseData) => {
         this.transactions = response.data;
-        console.log(response.data);
+        this.success = true;
       })
       .catch((e: Error) => {
+        this.error = true;
         console.log(e);
+      })
+      .finally(() => {
+        this.loading = false;
       });
   },
   methods: {
