@@ -4,6 +4,15 @@
       <p>Carregando...</p>
   </div>
   <div v-else>
+  <div class="filter">
+    <input type="text" class="filter__text" aria-label="filtrar dados" placeholder="Pesquise pelo titulo" v-model="textSearchString" />
+    <select class="filter__status" v-model="filterStatus" name="filterStatus" id="filterStatus" >
+      <option disable selected value="">Todas</option>
+      <option v-for="statusItem in status" v-bind:value="statusItem.value" v-bind:key="statusItem.id">
+        {{ statusItem.name }}
+      </option>
+    </select>
+  </div>
     <table class="table">
       <thead class="thead">
         <tr>
@@ -12,17 +21,15 @@
           <th scope="col">Status</th>
           <th scope="col">Date</th>
           <th scope="col">Valor</th>
-          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="table-line" v-for="transaction, index in sortedItems" :key="transaction.id">
+        <tr class="table-line" v-for="transaction in sortedItems" :key="transaction.id">
           <td>{{ transaction.title }}</td>
           <td>{{ transaction.description }}</td>
           <td>{{ formatStatus(transaction.status) }}</td>
           <td>{{ formatDate(transaction.date) }}</td>
           <td>{{ formatAmount(transaction.amount) }}</td>
-          <td><button @click="deleteEvent(index)">Delete</button></td>
         </tr>
       </tbody>
     </table>
@@ -40,11 +47,19 @@ export default Vue.extend({
   name: "TableList",
   data() {
     return {
+      textSearchString: "",
+      filterStatus: "",
       success: false,
       error: false,
       loading: true,
       transactions: [] as ITransactions[],
+      tempTransactions: [] as ITransactions[],
       currentIndex: -1,
+      status: [
+        { id: 0, value: "created", name: "Criado" },
+        { id: 1, value: "processed", name: "Concluída" },
+        { id: 2, value: "processing", name: "Solicitada" },
+      ],
     };
   },
   mounted() {
@@ -52,6 +67,9 @@ export default Vue.extend({
       .get("https://warren-transactions-api.herokuapp.com/api/transactions")
       .then((response: IResponseData) => {
         this.transactions = response.data;
+        this.transactions = [...this.transactions].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
         this.success = true;
       })
       .catch((e: Error) => {
@@ -63,10 +81,7 @@ export default Vue.extend({
       });
   },
   methods: {
-    deleteEvent(index: number) {
-      console.log(index);
-      this.transactions.splice(index, 1);
-    },
+
     formatStatus(status: string) {
       switch (status) {
         case "created":
@@ -76,7 +91,7 @@ export default Vue.extend({
         case "processing":
           return "Solicitada";
         default:
-          return "----";
+          return "Não identificado";
       }
     },
     formatAmount(amount: number) {
@@ -88,9 +103,21 @@ export default Vue.extend({
   },
   computed: {
     sortedItems(): ITransactions[] {
-      return [...this.transactions].sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      );
+      const { transactions } = this;
+      let tempTransactions = transactions.map((object) => ({ ...object }));
+      const { textSearchString } = this;
+      const { filterStatus } = this;
+
+      if ((textSearchString !== '' && textSearchString) || filterStatus) {
+        tempTransactions = tempTransactions.filter((item) => item.title
+          .toUpperCase()
+          .includes(textSearchString.toUpperCase()));
+        if (filterStatus !== '') {
+          return tempTransactions.filter((item) => item.status === filterStatus);
+        }
+        return tempTransactions;
+      }
+      return transactions;
     },
   },
 });
