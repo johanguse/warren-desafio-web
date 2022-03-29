@@ -7,7 +7,7 @@
   <div class="filter">
     <input type="text" class="filter__text" aria-label="filtrar dados" placeholder="Pesquise pelo titulo" v-model="textSearchString" />
     <select class="filter__status" v-model="filterStatus" name="filterStatus" id="filterStatus" >
-      <option disable selected value="">Todas</option>
+      <option disable selected value="">Status</option>
       <option v-for="statusItem in status" v-bind:value="statusItem.value" v-bind:key="statusItem.id">
         {{ statusItem.name }}
       </option>
