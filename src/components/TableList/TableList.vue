@@ -1,18 +1,18 @@
 <template>
 <div>
   <div v-if="loading">
-      <p>Carregando...</p>
+      <TableListLoader/>
   </div>
   <div v-else>
-  <div class="filter">
-    <input type="text" class="filter__text" aria-label="filtrar dados" placeholder="Pesquise pelo titulo" v-model="textSearchString" />
-    <select class="filter__status" v-model="filterStatus" name="filterStatus" id="filterStatus" >
-      <option disable selected value="">Status</option>
-      <option v-for="statusItem in status" v-bind:value="statusItem.value" v-bind:key="statusItem.id">
-        {{ statusItem.name }}
-      </option>
-    </select>
-  </div>
+    <div class="filter">
+      <input type="text" class="filter__text" aria-label="filtrar dados" placeholder="Pesquise pelo titulo" v-model="textSearchString" />
+      <select class="filter__status" v-model="filterStatus" name="filterStatus" id="filterStatus" >
+        <option disable selected value="">Status</option>
+        <option v-for="statusItem in status" v-bind:value="statusItem.value" v-bind:key="statusItem.id">
+          {{ statusItem.name }}
+        </option>
+      </select>
+    </div>
     <table class="table">
       <thead class="thead">
         <tr>
@@ -42,9 +42,13 @@ import Vue from "vue";
 import axios from "axios";
 import ITransactions from "@/types/Transactions";
 import IResponseData from "@/types/ResponseData";
+import TableListLoader from "../TableListLoader/TableListLoader.vue";
 
 export default Vue.extend({
   name: "TableList",
+  components: {
+    TableListLoader,
+  },
   data() {
     return {
       textSearchString: "",
