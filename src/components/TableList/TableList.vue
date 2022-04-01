@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-line" v-for="transaction in sortedItems" :key="transaction.id">
+        <tr class="table-line" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
           <td>{{ transaction.title }}</td>
           <td>{{ transaction.description }}</td>
           <td>{{ formatStatus(transaction.status) }}</td>
@@ -34,6 +34,7 @@
       </tbody>
     </table>
   </div>
+  <Modal />
 </div>
 </template>
 
@@ -43,11 +44,16 @@ import axios from "axios";
 import ITransactions from "@/types/Transactions";
 import IResponseData from "@/types/ResponseData";
 import TableListLoader from "../TableListLoader/TableListLoader.vue";
+import Modal from '../Modal/Modal.vue';
 
 export default Vue.extend({
   name: "TableList",
   components: {
     TableListLoader,
+    Modal,
+  },
+  created() {
+    document.title = "Warren Desafio Web - Front-end";
   },
   data() {
     return {
@@ -64,6 +70,8 @@ export default Vue.extend({
         { id: 1, value: "processed", name: "Concluída" },
         { id: 2, value: "processing", name: "Solicitada" },
       ],
+      selectedId: "" as string,
+      transactionData: {} as object,
     };
   },
   mounted() {
@@ -101,8 +109,25 @@ export default Vue.extend({
     formatAmount(amount: number) {
       return amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' });
     },
-    formatDate(date: Date) {
-      return new Date(date).toLocaleDateString('pt-BR');
+    formatDate(date: string) {
+      return new Date(date).toLocaleDateString('pt-Br', { dateStyle: 'short', timeZone: 'America/Sao_Paulo' });
+    },
+    closeModal() {
+      this.$modal.hide('modal-transactions');
+    },
+    openModal(selectedId: string) {
+      axios
+        .get(`https://warren-transactions-api.herokuapp.com/api/transactions/${selectedId}`)
+        .then((response: IResponseData) => {
+          this.transactionData = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.loading = false;
+          this.$modal.show('modal-transactions', { item: this.transactionData });
+        });
     },
   },
   computed: {
