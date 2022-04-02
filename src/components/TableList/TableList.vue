@@ -106,10 +106,10 @@ export default Vue.extend({
       }
     },
     formatAmount(amount: number) {
-      return amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' });
+      return amount?.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) || '';
     },
     formatDate(date: string) {
-      return new Date(date).toLocaleDateString('pt-Br', { dateStyle: 'short', timeZone: 'America/Sao_Paulo' });
+      return new Date(date)?.toLocaleDateString('pt-Br', { dateStyle: 'short', timeZone: 'America/Sao_Paulo' }) || '';
     },
     closeModal() {
       this.$modal.hide('modal-transactions');

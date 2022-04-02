@@ -77,7 +77,7 @@ export default Vue.extend({
       }
     },
     formatAmount(amount: number) {
-      return amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' });
+      return amount?.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) || '';
     },
     closeModal() {
       this.$modal.hide('modal-transactions');
