@@ -64,7 +64,6 @@ export default Vue.extend({
       loading: true,
       transactions: [] as ITransactions[],
       tempTransactions: [] as ITransactions[],
-      currentIndex: -1,
       status: [
         { id: 0, value: "created", name: "Criado" },
         { id: 1, value: "processed", name: "Concluída" },
