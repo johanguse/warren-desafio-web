@@ -31,6 +31,7 @@ Para a utilização da aplicação são necessários alguns softwares, listados 
 - [git](https://git-scm.com/): Utilizado para clonar o repositório do projeto.
 - [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/): Gerenciador de pacotes para a instalação automática das dependências do projeto
 - [Node.js](https://nodejs.org/en/): Runtime para utilizar o gerenciador de pacotes e necessário para rodar a aplicação.
+- [Vue Cli](https://cli.vuejs.org/guide/installation.html) - Vue CLI aims to be the standard tooling baseline for the Vue ecosystem.
 
 ### Instalação
 
