@@ -15,6 +15,7 @@
     "vue-js-modal": "^2.0.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.3",
     "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
