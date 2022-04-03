@@ -13,26 +13,28 @@
         </option>
       </select>
     </div>
-    <table class="table">
-      <thead class="thead">
-        <tr class="headers">
-          <th class="header" scope="col">Title</th>
-          <th class="header" scope="col">Description</th>
-          <th class="header" scope="col">Status</th>
-          <th class="header" scope="col">Date</th>
-          <th class="header" scope="col">Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="tdata" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
-          <td data-label="Título">{{ transaction.title }}</td>
-          <td data-label="Descrição">{{ transaction.description | capitalize }}</td>
-          <td data-label="Status">{{ formatStatus(transaction.status) }}</td>
-          <td data-label="Data">{{ transaction.date | formatDate }}</td>
-          <td data-label="Valor">{{ transaction.amount | formatAmount }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="twrap">
+      <table class="table">
+        <thead class="thead">
+          <tr class="headers">
+            <th class="header" scope="col">Title</th>
+            <th class="header" scope="col">Description</th>
+            <th class="header" scope="col">Status</th>
+            <th class="header" scope="col">Date</th>
+            <th class="header" scope="col">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tdata" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
+            <td data-label="Título">{{ transaction.title }}</td>
+            <td data-label="Descrição">{{ transaction.description | capitalize }}</td>
+            <td data-label="Status">{{ formatStatus(transaction.status) }}</td>
+            <td data-label="Data">{{ transaction.date | formatDate }}</td>
+            <td data-label="Valor">{{ transaction.amount | formatAmount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <Modal />
 </div>
