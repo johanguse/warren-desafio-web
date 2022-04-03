@@ -1,8 +1,9 @@
 .filter {
   margin: 20px 0;
 
+  display: flex;
+
   &__text {
-    padding: 8px 10px;
     border: 2px solid #000;
     border-radius: 20px;
     margin-right: 15px;
@@ -13,25 +14,46 @@
     &::placeholder {
       color: #000;
     }
+
+    @media (max-width: 374.98px) {
+      width: inherit;
+      padding: 9px 0px 9px 35px;
+      margin: 0 0 15px 0;
+    }
   }
+
   &__status {
     border: 2px solid #000;
     padding: 8px 10px;
+
+    @media (max-width: 374.98px) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 374.98px) {
+    flex-direction: column;
   }
 }
+
 .table {
   border: 2px solid #eee;
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 30px;
-}
-.thead {
-  background-color: #eee;
-}
-.table-line:nth-child(even) {
-  background-color: #f9f9f9;
-}
-.table-line td, .table th {
-  cursor: pointer;
-  padding: 8px 4px;
+
+
+  .thead {
+    background-color: #eee;
+  }
+
+  .tdata:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .tdata td,
+  .table th {
+    cursor: pointer;
+    padding: 8px 4px;
+  }
 }

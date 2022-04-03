@@ -1,5 +1,5 @@
 <template>
-  <modal name="modal-transactions" height="auto" @before-open="beforeOpen">
+  <modal name="modal-transactions" height="auto" adaptive="true" @before-open="beforeOpen">
     <div class="modal-wrapper" role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
