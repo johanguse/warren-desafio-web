@@ -15,21 +15,21 @@
     </div>
     <table class="table">
       <thead class="thead">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-          <th scope="col">Status</th>
-          <th scope="col">Date</th>
-          <th scope="col">Valor</th>
+        <tr class="headers">
+          <th class="header" scope="col">Title</th>
+          <th class="header" scope="col">Description</th>
+          <th class="header" scope="col">Status</th>
+          <th class="header" scope="col">Date</th>
+          <th class="header" scope="col">Valor</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="table-line" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
-          <td>{{ transaction.title }}</td>
-          <td>{{ transaction.description }}</td>
-          <td>{{ formatStatus(transaction.status) }}</td>
-          <td>{{ formatDate(transaction.date) }}</td>
-          <td>{{ formatAmount(transaction.amount) }}</td>
+        <tr class="tdata" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
+          <td data-label="Título">{{ transaction.title }}</td>
+          <td data-label="Descrição">{{ transaction.description }}</td>
+          <td data-label="Status">{{ formatStatus(transaction.status) }}</td>
+          <td data-label="Data">{{ formatDate(transaction.date) }}</td>
+          <td data-label="Valor">{{ formatAmount(transaction.amount) }}</td>
         </tr>
       </tbody>
     </table>
