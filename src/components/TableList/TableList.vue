@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
+import api from "@/services/http-common";
 import ITransactions from "@/types/Transactions";
 import IResponseData from "@/types/ResponseData";
 import TableListLoader from "../TableListLoader/TableListLoader.vue";
@@ -74,8 +74,8 @@ export default Vue.extend({
     };
   },
   mounted() {
-    axios
-      .get("https://warren-transactions-api.herokuapp.com/api/transactions")
+    api
+      .get(`transactions`)
       .then((response: IResponseData) => {
         this.transactions = response.data;
         this.transactions = [...this.transactions].sort(
@@ -109,8 +109,8 @@ export default Vue.extend({
       this.$modal.hide('modal-transactions');
     },
     openModal(selectedId: string) {
-      axios
-        .get(`https://warren-transactions-api.herokuapp.com/api/transactions/${selectedId}`)
+      api
+        .get(`transactions/${selectedId}`)
         .then((response: IResponseData) => {
           this.transactionData = response.data;
         })

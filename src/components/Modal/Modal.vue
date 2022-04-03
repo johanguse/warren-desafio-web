@@ -10,8 +10,8 @@
           <progress class="bar" :value="`${formatPercent(itemToShow.status)}`" max="100"></progress>
         </div>
         <div class="status-text">
+          <p>Criada</p>
           <p>Solicitada</p>
-          <p>Processada</p>
           <p>Concluída</p>
         </div>
       </div>
