@@ -1,5 +1,5 @@
 <template>
-  <modal name="modal-transactions" height="auto" adaptive="true" @before-open="beforeOpen">
+  <modal name="modal-transactions" height="auto" :adaptive=true @before-open="beforeOpen">
     <div class="modal-wrapper" role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
@@ -7,7 +7,7 @@
       <h1 class="modal-wrapper-title">{{ itemToShow.title }}</h1>
       <div class="status">
         <div class="status-bar">
-          <progress class="bar" :value="`${formatPercent(itemToShow.status)}`" max="100" style="--value: 0; --max: 100;"></progress>
+          <progress class="bar" :value="`${formatPercent(itemToShow.status)}`" max="100"></progress>
         </div>
         <div class="status-text">
           <p>Solicitada</p>
@@ -82,6 +82,7 @@ export default Vue.extend({
     closeModal() {
       this.$modal.hide('modal-transactions');
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     beforeOpen(event: any) {
       this.item = event.params.item;
     },

@@ -1,87 +1,92 @@
-
 .skeleton {
-  background: #fff;
+  background: @white;
   margin: 20px 0;
-  
+
   &.skeleton--card {
     width: 100%;
     display: inline-block;
     vertical-align: text-top;
   }
-  
-  
+
+
   .skeleton--content {
     height: 150px;
     position: relative;
-  
+
     .loader {
-      background: #f6f7f8;
+      background: @gray-shimmer1;
       -webkit-animation-duration: 1s;
       -webkit-animation-fill-mode: forwards;
       -webkit-animation-iteration-count: infinite;
       -webkit-animation-name: placeholderSkeleton;
       -webkit-animation-timing-function: linear;
-      background-image: -webkit-gradient(linear, left center, right center, from(#f6f7f8), color-stop(.2, #edeef1), color-stop(.4, #f6f7f8), to(#f6f7f8));
-      background-image: -webkit-linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+      background-image: -webkit-gradient(linear, left center, right center, from(@gray-shimmer1), color-stop(.2, @gray-shimmer2), color-stop(.4, @gray-shimmer1), to(@gray-shimmer1));
+      background-image: -webkit-linear-gradient(left, @gray-shimmer1 0%, @gray-shimmer2 20%, @gray-shimmer1 40%, @gray-shimmer1 100%);
       background-repeat: no-repeat;
       background-size: 800px 104px;
       height: 104px;
       position: relative;
     }
-    
+
     .skeleton--content-wrapper {}
-    
+
     .skeleton--table {
       .skeleton--tr {
         display: flex;
+
         .skeleton--th {
           flex: 1 1 300%;
           height: 15px;
           margin: 5px 10px 15px;
         }
+
         .skeleton--td {
           flex: 1 1 300%;
           height: 10px;
           margin: 5px 10px;
         }
-        
+
         .skeleton--td__2 {
           flex-basis: 100%;
         }
+
         .skeleton--td__3 {
           flex-basis: 500%;
         }
+
         .skeleton--td__4 {
           flex-basis: 200%;
         }
+
         .skeleton--td__5 {
           flex-basis: 200%;
         }
       }
     }
-    
+
     .skeleton--title {
       margin: 20px 10px;
       height: 30px;
       width: 300px;
-    }   
+    }
+
     .skeleton--line {
       height: 10px;
       width: calc(~'100% - 20px');
       margin: 10px;
-      
+
       &.skeleton--line__short {
         width: 120px;
       }
     }
-    
+
     .skeleton--circle {
       margin: 5px 10px 10px;
       height: 60px;
       width: 60px;
       border-radius: 10px;
     }
-    
+
     .fl {
       display: inline-block;
       width: auto;
@@ -95,6 +100,7 @@
   0% {
     background-position: -468px 0;
   }
+
   100% {
     background-position: 468px 0;
   }
