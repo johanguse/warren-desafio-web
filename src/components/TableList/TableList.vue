@@ -26,10 +26,10 @@
       <tbody>
         <tr class="tdata" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
           <td data-label="Título">{{ transaction.title }}</td>
-          <td data-label="Descrição">{{ transaction.description }}</td>
+          <td data-label="Descrição">{{ transaction.description | capitalize }}</td>
           <td data-label="Status">{{ formatStatus(transaction.status) }}</td>
-          <td data-label="Data">{{ formatDate(transaction.date) }}</td>
-          <td data-label="Valor">{{ formatAmount(transaction.amount) }}</td>
+          <td data-label="Data">{{ transaction.date | formatDate }}</td>
+          <td data-label="Valor">{{ transaction.amount | formatAmount }}</td>
         </tr>
       </tbody>
     </table>
@@ -104,12 +104,6 @@ export default Vue.extend({
         default:
           return "Não identificado";
       }
-    },
-    formatAmount(amount: number) {
-      return amount?.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) || '';
-    },
-    formatDate(date: string) {
-      return new Date(date)?.toLocaleDateString('pt-Br', { dateStyle: 'short', timeZone: 'America/Sao_Paulo' }) || '';
     },
     closeModal() {
       this.$modal.hide('modal-transactions');

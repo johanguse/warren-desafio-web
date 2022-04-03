@@ -20,14 +20,14 @@
           <h2 class="title">Transferido de</h2>
           <div class="transfer-location__text">
             <p class="from">{{ itemToShow.from }}</p>
-            <p class="amount">{{ formatAmount(itemToShow.amount) }}</p>
+            <p class="amount">{{ itemToShow.amount | formatAmount }}</p>
           </div>
         </div>
         <div class="transfer-location">
           <h2 class="title">Para</h2>
           <div class="transfer-location__text">
             <p class="from">{{ itemToShow.to }}</p>
-            <p class="amount">{{ formatAmount(itemToShow.amount) }}</p>
+            <p class="amount">{{ itemToShow.amount | formatAmount }}</p>
           </div>
         </div>
       </div>
@@ -75,9 +75,6 @@ export default Vue.extend({
         default:
           return "0";
       }
-    },
-    formatAmount(amount: number) {
-      return amount?.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) || '';
     },
     closeModal() {
       this.$modal.hide('modal-transactions');
