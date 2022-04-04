@@ -2,6 +2,8 @@
 
 Todas as informações sobre o desafio pode ser encontradas no link <https://github.com/warrenbrasil/desafio-warren-web>
 
+Link para demo: <https://warren-desafio-web.netlify.app/>
+
 ## Sobre o desafio
 
 Este desafio consistia em implementar uma tela de lista de transações apresentando os principais dados relacionado a cada uma delas e ao clicar em uma transação será exibido um modal contendo os detalhes desta transação. O desafio deverá conter as seguintes funcionalidades:
