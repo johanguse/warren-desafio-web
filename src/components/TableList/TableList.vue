@@ -159,8 +159,7 @@ export default Vue.extend({
       const { filterStatus } = this;
 
       if ((textSearchString !== "" && textSearchString) || filterStatus) {
-        tempTransactions = tempTransactions.filter((item) =>
-          item.Title.toUpperCase().includes(textSearchString.toUpperCase()));
+        tempTransactions = tempTransactions.filter((item) => item.Title.toUpperCase().includes(textSearchString.toUpperCase()));
         if (filterStatus !== "") {
           return tempTransactions.filter((item) => item.Status === filterStatus);
         }
