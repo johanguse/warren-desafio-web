@@ -107,9 +107,7 @@ export default Vue.extend({
       .get(`transactions`)
       .then((response: AxiosResponse<IResponseData<ITransactions>>) => {
         this.transactions = response.data.data;
-        this.transactions = [...this.transactions].sort(
-          (a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime(),
-        );
+        this.transactions = [...this.transactions].sort((a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime());
         this.success = true;
       })
       .catch((e: Error) => {
@@ -164,9 +162,7 @@ export default Vue.extend({
         tempTransactions = tempTransactions.filter((item) =>
           item.Title.toUpperCase().includes(textSearchString.toUpperCase()));
         if (filterStatus !== "") {
-          return tempTransactions.filter(
-            (item) => item.Status === filterStatus,
-          );
+          return tempTransactions.filter((item) => item.Status === filterStatus);
         }
         return tempTransactions;
       }
