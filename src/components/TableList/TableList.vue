@@ -162,8 +162,7 @@ export default Vue.extend({
 
       if ((textSearchString !== "" && textSearchString) || filterStatus) {
         tempTransactions = tempTransactions.filter((item) =>
-          item.Title.toUpperCase().includes(textSearchString.toUpperCase()),
-        );
+          item.Title.toUpperCase().includes(textSearchString.toUpperCase()));
         if (filterStatus !== "") {
           return tempTransactions.filter(
             (item) => item.Status === filterStatus,
