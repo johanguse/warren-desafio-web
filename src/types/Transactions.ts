@@ -1,11 +1,13 @@
 interface ITransactions {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-  amount: number;
-  date: Date;
-  from: string;
-  to: string;
+  ID: number;
+  Title: string;
+  Description: string;
+  Status: string;
+  Amount: number;
+  Date: string;
+  FromUser: string;
+  ToUser: string;
+  CreatedAt: string;
+  UpdatedAt: string;
 }
 export default ITransactions;

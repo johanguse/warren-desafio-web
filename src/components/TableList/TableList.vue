@@ -1,52 +1,79 @@
 <template>
-<div>
-  <div v-if="loading">
-      <TableListLoader/>
-  </div>
-  <div v-else>
-    <div class="filter">
-      <input type="text" class="filter__text" aria-label="filtrar dados" placeholder="Pesquise pelo titulo" v-model="textSearchString" />
-      <select class="filter__status" v-model="filterStatus" name="filterStatus" id="filterStatus" >
-        <option disable selected value="">Status</option>
-        <option v-for="statusItem in status" v-bind:value="statusItem.value" v-bind:key="statusItem.id">
-          {{ statusItem.name }}
-        </option>
-      </select>
+  <div>
+    <div v-if="loading">
+      <TableListLoader />
     </div>
-    <div class="twrap">
-      <table class="table">
-        <thead class="thead">
-          <tr class="headers">
-            <th class="header" scope="col">Title</th>
-            <th class="header" scope="col">Description</th>
-            <th class="header" scope="col">Status</th>
-            <th class="header" scope="col">Date</th>
-            <th class="header" scope="col">Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="tdata" v-for="transaction in sortedItems" :key="transaction.id" @click="openModal(transaction.id)">
-            <td data-label="Título">{{ transaction.title }}</td>
-            <td data-label="Descrição">{{ transaction.description | capitalize }}</td>
-            <td data-label="Status">{{ formatStatus(transaction.status) }}</td>
-            <td data-label="Data">{{ transaction.date | formatDate }}</td>
-            <td data-label="Valor">{{ transaction.amount | formatAmount }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div v-else>
+      <div class="filter">
+        <input
+          type="text"
+          class="filter__text"
+          aria-label="filtrar dados"
+          placeholder="Pesquise pelo titulo"
+          v-model="textSearchString"
+        />
+        <select
+          class="filter__status"
+          v-model="filterStatus"
+          name="filterStatus"
+          id="filterStatus"
+        >
+          <option disable selected value="">Status</option>
+          <option
+            v-for="statusItem in status"
+            v-bind:value="statusItem.value"
+            v-bind:key="statusItem.id"
+          >
+            {{ statusItem.name }}
+          </option>
+        </select>
+      </div>
+      <div class="twrap">
+        <table class="table">
+          <thead class="thead">
+            <tr class="headers">
+              <th class="header" scope="col">Title</th>
+              <th class="header" scope="col">Description</th>
+              <th class="header" scope="col">Status</th>
+              <th class="header" scope="col">Date</th>
+              <th class="header" scope="col">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="tdata"
+              v-for="transaction in sortedItems"
+              :key="transaction.ID"
+              @click="openModal(transaction.ID)"
+            >
+              <td data-label="Título">{{ transaction.Title }}</td>
+              <td data-label="Descrição">
+                {{ transaction.Description | capitalize }}
+              </td>
+              <td data-label="Status">
+                {{ formatStatus(transaction.Status) }}
+              </td>
+              <td data-label="Data">{{ transaction.Date | formatDate }}</td>
+              <td data-label="Valor">
+                {{ transaction.Amount | formatAmount }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <Modal />
   </div>
-  <Modal />
-</div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { AxiosResponse } from "axios";
 import api from "@/services/http-common";
 import ITransactions from "@/types/Transactions";
 import IResponseData from "@/types/ResponseData";
 import TableListLoader from "../TableListLoader/TableListLoader.vue";
-import Modal from '../Modal/Modal.vue';
+import Modal from "../Modal/Modal.vue";
 
 export default Vue.extend({
   name: "TableList",
@@ -78,10 +105,10 @@ export default Vue.extend({
   mounted() {
     api
       .get(`transactions`)
-      .then((response: IResponseData) => {
-        this.transactions = response.data;
+      .then((response: AxiosResponse<IResponseData<ITransactions>>) => {
+        this.transactions = response.data.data;
         this.transactions = [...this.transactions].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+          (a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime(),
         );
         this.success = true;
       })
@@ -94,7 +121,6 @@ export default Vue.extend({
       });
   },
   methods: {
-
     formatStatus(status: string) {
       switch (status) {
         case "created":
@@ -108,12 +134,12 @@ export default Vue.extend({
       }
     },
     closeModal() {
-      this.$modal.hide('modal-transactions');
+      this.$modal.hide("modal-transactions");
     },
-    openModal(selectedId: string) {
+    openModal(selectedId: number) {
       api
         .get(`transactions/${selectedId}`)
-        .then((response: IResponseData) => {
+        .then((response: AxiosResponse<IResponseData<ITransactions>>) => {
           this.transactionData = response.data;
         })
         .catch((error) => {
@@ -121,7 +147,9 @@ export default Vue.extend({
         })
         .finally(() => {
           this.loading = false;
-          this.$modal.show('modal-transactions', { item: this.transactionData });
+          this.$modal.show("modal-transactions", {
+            item: this.transactionData,
+          });
         });
     },
   },
@@ -132,12 +160,14 @@ export default Vue.extend({
       const { textSearchString } = this;
       const { filterStatus } = this;
 
-      if ((textSearchString !== '' && textSearchString) || filterStatus) {
-        tempTransactions = tempTransactions.filter((item) => item.title
-          .toUpperCase()
-          .includes(textSearchString.toUpperCase()));
-        if (filterStatus !== '') {
-          return tempTransactions.filter((item) => item.status === filterStatus);
+      if ((textSearchString !== "" && textSearchString) || filterStatus) {
+        tempTransactions = tempTransactions.filter((item) =>
+          item.Title.toUpperCase().includes(textSearchString.toUpperCase()),
+        );
+        if (filterStatus !== "") {
+          return tempTransactions.filter(
+            (item) => item.Status === filterStatus,
+          );
         }
         return tempTransactions;
       }
@@ -148,5 +178,5 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="less">
-  @import "./table.less";
+@import "./table.less";
 </style>
