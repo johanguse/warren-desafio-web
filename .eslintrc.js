@@ -21,6 +21,7 @@ module.exports = {
       "error",
       process.platform === "win32" ? "windows" : "unix",
     ], // https://stackoverflow.com/q/39114446/2771889
+    "function-paren-newline": ["error", "never"],
   },
   overrides: [
     {
